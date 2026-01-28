@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Message For You ❤️</title>
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ffb3c1;
+            --bg: #fff5f7;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--bg);
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+            max-width: 380px;
+            width: 85%;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .hidden { display: none !important; }
+
+        img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 { color: #c9184a; font-size: 1.5rem; margin-bottom: 15px; }
+        p { color: #590d22; line-height: 1.5; font-size: 1rem; }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        #yesBtn, .nextBtn { background-color: var(--primary); color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); }
+        #noBtn { background-color: #eee; color: #777; font-size: 0.9rem; }
+        
+        button:hover { transform: scale(1.03); }
+
+        .heart {
+            position: absolute;
+            color: var(--primary);
+            animation: rise 3s linear forwards;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+        }
+
+        .date-plan {
+            background: #fff0f3;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            text-align: left;
+            font-size: 0.9rem;
+            border-left: 5px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="valentineMusic" loop>
+        <source src="/Users/parthsrivastava/Desktop/untitled folder 2/romantic-454545.mp3" type="audio/mpeg">
+        </audio>
+
+    <div id="page0" class="card">
+        <<img src="/Users/parthsrivastava/Desktop/untitled folder 2/dcb52cc6232be5383d2dc88783920aa7.jpg" alt="Hi">
+        <h1>Hi Chinkiiii! 😊</h1>
+        <p>I have something I've been wanting to ask you...</p>
+        <div class="btn-container">
+            <button class="nextBtn" onclick="showPage('page1')">What is it? ✨</button>
+        </div>
+    </div>
+
+    <div id="page1" class="card hidden">
+        <img src="/Users/parthsrivastava/Desktop/untitled folder 2/Dog Hello GIF.gif" alt="Chalti Kyaa???">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <p>I promise it'll be filled with snacks and smiles!</p>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="celebrate()">YES, I'D LOVE TO!</button>
+            <button id="noBtn" onclick="handleNo()">No thanks...</button>
+        </div>
+    </div>
+
+    <div id="page-no" class="card hidden">
+        <img src="/Users/parthsrivastava/Desktop/untitled folder 2/grayscale-selective-focus-hot-sad-dog-looking-out-window_181624-17664.jpg.avif" alt="Sad">
+        <h1 id="no-title">Wait, really? 🥺</h1>
+        <p id="no-text">My heart just broke a little bit...</p>
+        <div class="btn-container">
+            <button class="nextBtn" onclick="showPage('page1')">Okay fine, ask again! ❤️</button>
+        </div>
+    </div>
+
+    <div id="page-yes" class="card hidden">
+        <img src="/Users/parthsrivastava/Desktop/untitled folder 2/Snapchat-1051579196.jpg" alt="Us">
+        <h1>I KNEW YOU'D SAY YES! 🐶✨</h1>
+        <p>You've officially made me the happiest person alive.</p>
+        
+        <div class="date-plan">
+            <strong>The Valentine's Plan:</strong>
+            <ul>
+                <li>✨ Unlimited Cuddles</li>
+                <li>✨ A Lunch Date</li>
+                <li>✨ Baaki Kuch Toh Surprise bhi rahega na babyyy</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let noCount = 0;
+        const music = document.getElementById('valentineMusic');
+
+        function showPage(pageId) {
+            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+        
+        function handleNo() {
+            noCount++;
+            showPage('page-no');
+            const noTitle = document.getElementById('no-title');
+            const noText = document.getElementById('no-text');
+
+            if (noCount === 1) {
+                noTitle.innerText = "Are you sure? 🤨";
+                noText.innerText = "Think about us vidzzyyyy... and me (I am just a baby)?";
+            } else if (noCount === 2) {
+                noTitle.innerText = "Error 404: Answer Not Found";
+                noText.innerText = "The 'No' button is currently out of service. Please try 'Yes'.";
+            } else {
+                noTitle.innerText = "Okay, now you're just teasing me! 😂";
+                noText.innerText = "Stop playing and say yes already!";
+            }
+        }
+
+        function celebrate() {
+            showPage('page-yes');
+            document.body.style.backgroundColor = '#ffccd5';
+            
+            // Start the music!
+            music.play().catch(error => {
+                console.log("Audio play failed, might need interaction:", error);
+            });
+
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 3000);
+        }
+    </script>
+</body>
+</html>
